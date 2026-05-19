@@ -1,0 +1,22 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: e-commerce
+  datasource:
+    url: jdbc:mysql://localhost:3306/camunda_db
+    username: root
+    password: my-secret-pw
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+camunda:
+  bpm:
+    admin-user:
+      id: demo
+      password: demo
+      first-name: Demo
+    authorization:
+      enabled: true
+    filter:
+      create: All tasks
+    default-serialization-format: application/json
