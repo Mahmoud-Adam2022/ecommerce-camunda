@@ -18,19 +18,19 @@ public class ReserveInventoryDelegate implements JavaDelegate {
     private final OrderRepo orderRepo;
     @Override
     public void execute(DelegateExecution execution) throws Exception {
-        Integer orderId = Integer.valueOf(execution.getBusinessKey());
+        String orderId = execution.getBusinessKey();
         Integer productCode = (Integer)execution.getVariable("productCode");
         Integer quantity = (Integer) execution.getVariable("quantity");
         InventoryRequest inventoryRequest = new InventoryRequest(orderId, productCode, quantity);
         InventoryResponse response =
                 restTemplate.postForObject(
-                        "http://localhost:8081/api/inventory/release/{resevationId}",
+                        "http://localhost:8081/api/inventory/reserve/{resevationId}",
                         inventoryRequest,
                         InventoryResponse.class
                 );
         boolean reserved = response != null && response.isReserved();
         execution.setVariable("inventoryReserved", reserved);
-        Order order = orderRepo.findById(orderId).orElseThrow();
+        Order order = orderRepo.findById(Integer.valueOf(orderId)).orElseThrow();
         order.setStatus("INVENTORY_RESERVED");
         orderRepo.save(order);
     }

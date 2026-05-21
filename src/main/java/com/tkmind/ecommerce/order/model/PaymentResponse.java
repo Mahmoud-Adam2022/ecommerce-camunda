@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentResponse {
-    private Integer orderId;
+    private String orderId;
     private Boolean success;
 }

@@ -18,7 +18,7 @@ public class ReleaseInventoryDelegate implements JavaDelegate {
         String orderId = execution.getBusinessKey();
         restTemplate.postForObject(
                 "http://localhost:8082/inventory/release",
-                Map.of("orderId", Integer.valueOf(orderId)),
+                Map.of("orderId", orderId),
                 Void.class
         );
         System.out.println("Inventory released : " + orderId);
