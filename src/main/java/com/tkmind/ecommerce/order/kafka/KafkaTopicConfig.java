@@ -9,7 +9,7 @@ import org.springframework.kafka.config.TopicBuilder;
 public class KafkaTopicConfig {
 
     @Bean
-    public NewTopic myTopic() {
+    public NewTopic paymentRequestTopic() {
         return TopicBuilder
                 .name("payment-request")
                 .partitions(1)
@@ -22,6 +22,16 @@ public class KafkaTopicConfig {
 
         return TopicBuilder
                 .name("payment-response")
+                .partitions(1)
+                .replicas(1)
+                .build();
+    }
+
+    @Bean
+    public NewTopic testKafkaTopic() {
+
+        return TopicBuilder
+                .name("my-test-topic")
                 .partitions(1)
                 .replicas(1)
                 .build();

@@ -9,6 +9,8 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 import com.tkmind.ecommerce.order.model.PaymentRequest;
 
+import java.math.BigDecimal;
+
 @Component
 @RequiredArgsConstructor
 public class PaymentProducerDelegate implements JavaDelegate {
@@ -19,7 +21,7 @@ public class PaymentProducerDelegate implements JavaDelegate {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         String orderId = execution.getBusinessKey();
-        PaymentRequest request = new PaymentRequest(Integer.valueOf(orderId));
+        PaymentRequest request = new PaymentRequest(orderId,new BigDecimal("100.0"));
         kafkaTemplate.send("payment-request", request);
         System.out.println("Payment request sent for order : " + orderId);
         Order order = orderRepo.findById(Integer.valueOf(orderId)).orElseThrow();
